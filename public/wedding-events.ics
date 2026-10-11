@@ -1,0 +1,50 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Nishtha & Pranshu//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mehndi-2026@nishtha-pranshu-wedding
+DTSTAMP:20261001T000000Z
+DTSTART:20261209T053000Z
+SUMMARY:Mehndi · Nishtha & Pranshu
+LOCATION:At our residence
+DESCRIPTION:Mehndi Laga ke Rakhna — 11:00 AM onwards
+END:VEVENT
+BEGIN:VEVENT
+UID:photoshoot-2026@nishtha-pranshu-wedding
+DTSTAMP:20261001T000000Z
+DTSTART:20261211T053000Z
+SUMMARY:Photoshoot · Nishtha & Pranshu
+LOCATION:Justa Rasa\, Rishikesh
+DESCRIPTION:Photoshoot with bride and groom — 11 AM onwards — https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+URL:https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+END:VEVENT
+BEGIN:VEVENT
+UID:haldi-2026@nishtha-pranshu-wedding
+DTSTAMP:20261001T000000Z
+DTSTART:20261211T063000Z
+SUMMARY:Haldi · Nishtha & Pranshu
+LOCATION:Justa Rasa\, Rishikesh
+DESCRIPTION:Haldi Hues — In our yellow era — 12 PM onwards — https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+URL:https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+END:VEVENT
+BEGIN:VEVENT
+UID:sangeet-2026@nishtha-pranshu-wedding
+DTSTAMP:20261001T000000Z
+DTSTART:20261211T123000Z
+SUMMARY:Sangeet · Nishtha & Pranshu
+LOCATION:Justa Rasa\, Rishikesh
+DESCRIPTION:Thumka Night and Party Lights — 6:00 PM onwards — https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+URL:https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+END:VEVENT
+BEGIN:VEVENT
+UID:wedding-2026@nishtha-pranshu-wedding
+DTSTAMP:20261001T000000Z
+DTSTART:20261212T043000Z
+SUMMARY:The Wedding Day · Nishtha & Pranshu
+LOCATION:Justa Rasa\, Rishikesh
+DESCRIPTION:Two hearts\, one forever. — Baraat — 10:00 AM onwards — https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+URL:https://maps.app.goo.gl/4jZfXge8vnKBEFtS8
+END:VEVENT
+END:VCALENDAR
