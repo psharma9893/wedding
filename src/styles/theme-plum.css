@@ -1200,3 +1200,152 @@ a { color: var(--gold-lotus); }
 }
 .tl__when, .tl__item .tl__when { flex-direction: row; padding-top: 0; justify-content: center; text-align: center; }
 @media (min-width: 640px) { .tl__when { flex-direction: row; } }
+
+
+/* =========================================================
+   ROUND 8 — RICH ENVELOPE (no button: the envelope is the control)
+   ========================================================= */
+.envelope__names {
+  white-space: nowrap;
+  font-size: clamp(2.5rem, 11.5vw, 4.6rem);
+  line-height: 1.25;
+  padding-top: 0.1em;
+}
+.envelope__names .amp { display: inline; font-size: 0.6em; padding: 0 0.12em; }
+.envelope__line { color: var(--ivory-text); }
+.envelope__stage { margin-top: auto; margin-bottom: auto; transform: translateY(-3vh); }
+
+/* the envelope, 140% larger, as a real button */
+.env {
+  display: block;
+  width: min(94vw, 476px);
+  margin: 16px auto 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.env > span { display: block; }
+.env:focus-visible { outline: 2px solid var(--gold-lotus); outline-offset: 8px; border-radius: 8px; }
+.env__back {
+  background: linear-gradient(#e7c27d, #c9974a);
+  box-shadow: 0 40px 70px -24px rgba(0, 0, 0, 0.75), inset 0 0 0 1.5px #a8761f;
+}
+.env__letter { display: flex !important; padding-top: 7%; }
+.env__letter-names { font-size: clamp(1.6rem, 7.6vw, 2.5rem); color: var(--plum); }
+.env__letter-date { font-size: 0.95rem; }
+/* front pocket: rich ivory-to-champagne paper, deep gold double rule, flowing corner swirls */
+.env__pocket {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(270 50 50)' fill='none' stroke='%23a8761f' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M8 12C30 4 52 6 62 16C70 24 64 34 55 32C48 30 49 22 55 22M12 8C4 30 6 52 16 62C24 70 34 64 32 55C30 48 22 49 22 55M14 14C26 22 34 32 34 44C34 54 24 56 21 49C19 43 25 39 29 42M62 16C74 10 86 14 88 22C90 30 80 32 78 26M16 62C10 74 14 86 22 88C30 90 32 80 26 78'/%3E%3C/g%3E%3C/svg%3E") left 10px bottom 10px / 22% auto no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(180 50 50)' fill='none' stroke='%23a8761f' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M8 12C30 4 52 6 62 16C70 24 64 34 55 32C48 30 49 22 55 22M12 8C4 30 6 52 16 62C24 70 34 64 32 55C30 48 22 49 22 55M14 14C26 22 34 32 34 44C34 54 24 56 21 49C19 43 25 39 29 42M62 16C74 10 86 14 88 22C90 30 80 32 78 26M16 62C10 74 14 86 22 88C30 90 32 80 26 78'/%3E%3C/g%3E%3C/svg%3E") right 10px bottom 10px / 22% auto no-repeat,
+    linear-gradient(to top right, transparent 49.5%, rgba(168, 118, 31, 0.55) 50%, transparent 50.5%) left bottom / 50% 100% no-repeat,
+    linear-gradient(to top left, transparent 49.5%, rgba(168, 118, 31, 0.55) 50%, transparent 50.5%) right bottom / 50% 100% no-repeat,
+    linear-gradient(165deg, #fff6e2 0%, #f7e4b8 45%, #ebc886 100%);
+  box-shadow: inset 0 0 0 1.5px #a8761f, inset 0 0 0 7px rgba(255, 246, 226, 0.0), inset 0 0 0 8px rgba(168, 118, 31, 0.55);
+}
+/* flap: deeper champagne with a flowing gold flourish above the seal, gold edge */
+.env__flap {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 60'%3E%3Cg fill='none' stroke='%23a8761f' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M120 48C104 30 82 22 60 28C42 33 34 48 46 52C56 55 60 44 52 41'/%3E%3Cpath d='M120 48C136 30 158 22 180 28C198 33 206 48 194 52C184 55 180 44 188 41'/%3E%3Cpath d='M60 28C44 14 22 12 8 22'/%3E%3Cpath d='M180 28C196 14 218 12 232 22'/%3E%3Cpath d='M120 48C116 36 116 24 120 12C124 24 124 36 120 48Z'/%3E%3C/g%3E%3Ccircle cx='120' cy='8' r='3' fill='%23a8761f'/%3E%3C/svg%3E") center 66% / 58% auto no-repeat,
+    linear-gradient(#fbecc8 0%, #efcf8f 70%, #e2b86c 100%);
+  filter: drop-shadow(0 1.5px 0 #a8761f) drop-shadow(0 4px 6px rgba(60, 20, 10, 0.35));
+}
+/* bigger wax seal, deep red against the gold paper */
+.env__seal {
+  width: 86px;
+  height: 86px;
+  font-size: 1.7rem;
+  background: radial-gradient(circle at 34% 30%, #c23a4c 0%, #8b1a2e 52%, #4e0c1a 100%);
+}
+.env__seal::before { inset: 8px; border: 1.5px dashed rgba(246, 212, 130, 0.6); }
+.env__burst { width: 16px; height: 16px; }
+.envelope__hint {
+  margin: 14px 0 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--gold-lotus);
+  animation: hint-pulse 2.6s ease-in-out infinite;
+}
+@keyframes hint-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@media (hover: hover) {
+  .env:hover .env__seal { transform: translate(-50%, -50%) scale(1.06); transition: transform 0.3s var(--ease); }
+}
+@media (max-height: 700px) {
+  .env { width: min(86vw, 400px); margin-top: 10px; }
+  .envelope__kolam { width: 80px; margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .envelope__hint { animation: none; opacity: 1; } }
+.envelope__stage { transform: translateY(-5vh); }
+@media (max-height: 700px) { .envelope__stage { transform: none; } }
+
+/* =========================================================
+   ROUND 9 — TYPOGRAPHY & CONTINUOUS PETALS
+   Kept as-is (already rich): Playfair Display headings, Great Vibes names,
+   Tiro Devanagari shlokas.
+   Upgraded (were plain Lora):
+     • body text → EB Garamond ("Classic") — refined old-style serif
+     • small caps labels, dates, buttons → Prata ("Timeless") — high-contrast display serif
+   ========================================================= */
+:root {
+  --serif: 'EB Garamond', Garamond, Georgia, 'Times New Roman', serif;
+  --label: 'Prata', 'Playfair Display', Georgia, serif;
+}
+body { font-family: var(--serif); font-weight: 500; font-size: 1.16rem; }
+@media (min-width: 900px) { body { font-size: 1.22rem; } }
+
+/* labels: eyebrows, small caps, dates, buttons */
+.eyebrow,
+.envelope__eyebrow,
+.opening__eyebrow,
+.opening__city,
+.plate__title small,
+.tl__date,
+.ticket__dress span,
+.travel dt,
+.countdown small,
+.env__letter-date,
+.closing__date,
+.closing__top,
+.hero__cue,
+.btn,
+.fab-rsvp {
+  font-family: var(--label);
+  font-weight: 400;
+}
+.eyebrow, .envelope__eyebrow, .opening__eyebrow { letter-spacing: 0.22em; }
+.btn { letter-spacing: 0.12em; }
+
+/* body copy sizes tuned for EB Garamond's smaller x-height */
+.ticket__time { font-size: 1.2rem; font-weight: 600; }
+.ticket__venue, .ticket__dress { font-size: 1.14rem; }
+.tl__time { font-size: 1.06rem; font-weight: 600; }
+.tl__venue { font-size: 1.08rem; }
+.travel dd { font-size: 1.14rem; }
+.rsvp__msg { font-size: 1.16rem; }
+.inv__italic, .rich-tile .inv__italic { font-size: 1.22rem; }
+.envelope__line { font-size: 1.15rem; }
+.countdown-tile__to, .rsvp__or, .kids__to, .kids__from, .contact__phone { font-size: 1.12rem; }
+.closing__names { font-size: 1.2rem; }
+
+/* continuous shower: each petal loops */
+.shower__p { animation-iteration-count: infinite; }
+@media (max-width: 639px) { .tl__date { font-size: 0.74rem; letter-spacing: 0.1em; } .tl__item, .tl__item:last-child { padding-left: 34px; padding-right: 34px; } }
+
+/* ---- Event manager block on the RSVP tile ---- */
+.manager { margin-top: 24px; }
+.manager .orn { margin: 0 auto 16px; }
+.manager__label {
+  margin: 0;
+  font-family: var(--label);
+  font-size: 0.9rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-lotus);
+}
+.manager__note { margin: 8px auto 4px; max-width: 30ch; font-style: italic; font-size: 1.12rem; color: var(--ivory-soft); }
+.manager__name { margin: 4px 0 0; font-size: 2.5rem; line-height: 1.25; padding-top: 0.08em; color: var(--gold-lotus); }

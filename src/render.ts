@@ -176,19 +176,19 @@ function envelope(): string {
     <p class="envelope__eyebrow">${esc(C.envelope.eyebrow)}</p>
     <p class="envelope__names script" id="env-names">${esc(C.couple.bride)} <span class="amp">&amp;</span> ${esc(C.couple.groom)}</p>
     <p class="envelope__line">${esc(C.envelope.line)}</p>
-    <div class="env" aria-hidden="true">
-      <div class="env__back"></div>
-      <div class="env__letter">
+    <button type="button" class="env" id="open-invite" aria-label="${esc(C.envelope.cta)}">
+      <span class="env__back"></span>
+      <span class="env__letter">
         ${orn('orn--sm')}
         <span class="env__letter-names script">${esc(C.couple.bride)} &amp; ${esc(C.couple.groom)}</span>
         <span class="env__letter-date">${esc(C.weddingDate.short)}</span>
-      </div>
-      <div class="env__pocket"></div>
-      <div class="env__flap"></div>
-      <div class="env__seal"><span>${esc(C.couple.bride[0])}<i>&amp;</i>${esc(C.couple.groom[0])}</span></div>
-      <div class="env__burst"></div>
-    </div>
-    <button type="button" class="btn btn--gold envelope__cta" id="open-invite">${esc(C.envelope.cta)}</button>
+      </span>
+      <span class="env__pocket"></span>
+      <span class="env__flap"></span>
+      <span class="env__seal"><span>${esc(C.couple.bride[0])}<i>&amp;</i>${esc(C.couple.groom[0])}</span></span>
+      <span class="env__burst"></span>
+    </button>
+    <p class="envelope__hint" aria-hidden="true">Tap the envelope to open</p>
   </div>
 </div>`;
 }
@@ -372,6 +372,17 @@ function rsvp(): string {
     <p class="rsvp__label reveal">RSVP</p>
     ${r.formUrl ? `<p class="reveal rsvp__form"><a class="btn btn--gold" href="${esc(r.formUrl)}" target="_blank" rel="noopener">RSVP online</a></p><p class="rsvp__or reveal">or message us</p>` : ''}
     <ul class="contacts reveal">${contacts}</ul>
+    ${r.eventManager?.name ? `<div class="manager reveal">
+      ${orn('orn--gold')}
+      <p class="manager__label">Event Manager</p>
+      <p class="manager__note">${esc(r.eventManager.note)}</p>
+      <p class="manager__name script">${esc(r.eventManager.name)}</p>
+      <p class="contact__phone"><a href="tel:+${digits(r.eventManager.phone)}">${esc(r.eventManager.phone)}</a></p>
+      <div class="contact__btns">
+        <a class="btn btn--gold btn--sm" href="https://wa.me/${digits(r.eventManager.phone)}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(r.eventManager.name)}, event manager">${icon.chat}<span>WhatsApp</span></a>
+        <a class="btn btn--line btn--sm" href="tel:+${digits(r.eventManager.phone)}" aria-label="Call ${esc(r.eventManager.name)}, event manager">${icon.phone}<span>Call</span></a>
+      </div>
+    </div>` : ''}
     <div class="reveal rsvp__dir">${mapsBtn(C.venue.mapsUrl, 'Directions to venue')}</div>
   </div>`;
   return `<section class="textpage textpage--rsvp" id="rsvp">

@@ -149,6 +149,12 @@ export const weddingConfig = {
      * Paste its share link here to show an "RSVP online" button. '' = hidden.
      */
     formUrl: '',
+    /** Event manager — shown below the RSVP contacts as the person to call with any queries */
+    eventManager: {
+      name: 'Moumita Mukherjee',
+      phone: '+91 97111 33971',
+      note: 'For any queries about the events, travel or stay, please contact our event manager.',
+    },
     /** Pre-filled WhatsApp message ('' = open an empty chat) */
     whatsappMessage: "Hi! We've received Nishtha & Pranshu's wedding invitation and would love to RSVP.",
   },
@@ -178,7 +184,7 @@ export const weddingConfig = {
     items: [
       { label: 'By air', text: 'Jolly Grant Airport, Dehradun — about 35 km from Rishikesh, roughly an hour by road.' },
       { label: 'By train', text: 'Haridwar Junction is about 25 km away; Yog Nagari Rishikesh station is closer to town.' },
-      { label: 'Stay', text: 'Guests will be staying at Justa Rasa or Grand Haveli, Rishikesh.' },
+      { label: 'Stay', text: 'Guests will be staying at Justa Rasa, Rishikesh.' },
       { label: 'Weather', text: 'December evenings in Rishikesh are chilly — please carry warm layers and a shawl.' },
     ],
   },

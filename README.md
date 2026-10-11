@@ -8,7 +8,7 @@ with RSVP and blessings. It is a static site, free to host on GitHub Pages.
 * **Stack:** Vite + TypeScript, no framework. The page is pre-rendered from
   `src/data/weddingConfig.ts` at build time, so it loads fast, works without
   JavaScript, and WhatsApp can read its preview. The JavaScript adds motion only (≈2 KB gzipped).
-* **Fonts:** Cormorant Garamond and Pinyon Script (Google Fonts), self-hosted via Fontsource.
+* **Fonts (Google Fonts, self-hosted via Fontsource):** Playfair Display (headings), EB Garamond (body), Prata (labels & buttons), Great Vibes (names), Tiro Devanagari Hindi (shlokas).
 * **Page ↔ section mapping:** see [`docs/PDF-MAPPING.md`](docs/PDF-MAPPING.md).
 
 ---

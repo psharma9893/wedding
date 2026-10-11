@@ -1,11 +1,12 @@
 // Google Fonts, self-hosted (latin subset only) — no third-party requests
-// Playfair Display: headings · Lora: body text (high legibility on phones) · Great Vibes: names & accents
+// Playfair Display: headings · EB Garamond: body text · Prata: small-caps labels & buttons
+// Great Vibes: names & accents · Tiro Devanagari: shlokas
 import '@fontsource/playfair-display/latin-500.css';
 import '@fontsource/playfair-display/latin-600.css';
-import '@fontsource/lora/latin-400.css';
-import '@fontsource/lora/latin-500.css';
-import '@fontsource/lora/latin-600.css';
-import '@fontsource/lora/latin-400-italic.css';
+import '@fontsource/eb-garamond/latin-500.css';
+import '@fontsource/eb-garamond/latin-600.css';
+import '@fontsource/eb-garamond/latin-500-italic.css';
+import '@fontsource/prata/latin-400.css';
 import '@fontsource/great-vibes/latin-400.css';
 import '@fontsource/tiro-devanagari-hindi/devanagari-400.css'; // ॥ श्री गणेशाय नमः ॥ on the cover
 import './styles/global.css';
@@ -34,7 +35,7 @@ function initEnvelope(): void {
   }
   const main = document.getElementById('invitation');
   main?.setAttribute('aria-hidden', 'true');
-  requestAnimationFrame(() => btn.focus({ preventScroll: true }));
+  // No auto-focus (it would draw a focus ring for tap users); Tab lands on the envelope.
 
   let opened = false;
   const open = () => {
@@ -65,18 +66,28 @@ function initEnvelope(): void {
     window.setTimeout(done, 3500);
   };
   btn.addEventListener('click', open);
-  env.querySelector('.env')?.addEventListener('click', open);
-  env.addEventListener('keydown', (e) => {
-    if ((e as KeyboardEvent).key === 'Escape') open();
-    if ((e as KeyboardEvent).key === 'Tab') {
-      e.preventDefault(); // single control: keep focus inside the dialog
+  // While the envelope is showing it is the only control: Tab always lands on it,
+  // Enter/Space open it (native button), Escape skips the animation.
+  const onKey = (e: KeyboardEvent) => {
+    if (!document.getElementById('envelope')) return document.removeEventListener('keydown', onKey);
+    if (e.key === 'Escape') open();
+    if (e.key === 'Tab') {
+      e.preventDefault();
       btn.focus();
     }
-  });
+  };
+  document.addEventListener('keydown', onKey);
 }
 
-/* ---------------- Petal & gold-leaf shower ---------------- */
-function showerPetals(count = window.innerWidth < 600 ? 34 : 56): void {
+/* ---------------- Petal & gold-leaf shower ----------------
+ * Starts as the palace doors open and keeps falling gently for the whole
+ * invitation. Density is 20% higher than the original opening burst
+ * (34 → 41 petals on phones, 56 → 67 on larger screens). Each petal loops
+ * forever on the GPU (transform/opacity only), so no JavaScript runs after start.
+ */
+function showerPetals(): void {
+  if (document.querySelector('.shower') || reduceMotion.matches) return;
+  const count = window.innerWidth < 600 ? 41 : 67;
   const box = document.createElement('div');
   box.className = 'shower';
   box.setAttribute('aria-hidden', 'true');
@@ -85,13 +96,13 @@ function showerPetals(count = window.innerWidth < 600 ? 34 : 56): void {
     const p = document.createElement('i');
     p.className = `shower__p shower__p--${kinds[i % kinds.length]}`;
     const size = 8 + Math.random() * 10;
+    const dur = 5 + Math.random() * 4; // 5–9 s per fall
     p.style.cssText = `left:${Math.random() * 100}%;width:${size}px;height:${size * 1.25}px;--dx:${(Math.random() - 0.5) * 160}px;--rot:${
       360 + Math.random() * 540
-    }deg;animation-duration:${3.2 + Math.random() * 2.8}s;animation-delay:${Math.random() * 1.2}s`;
+    }deg;animation-duration:${dur.toFixed(2)}s;animation-delay:-${(Math.random() * dur).toFixed(2)}s`;
     box.appendChild(p);
   }
   document.body.appendChild(box);
-  window.setTimeout(() => box.remove(), 8000);
 }
 
 /* ---------------- Reveal on scroll ---------------- */
@@ -251,4 +262,7 @@ initReveal();
 initScenes();
 initCountdown();
 initMusic();
-if (!document.getElementById('envelope')) document.getElementById('top')?.classList.add('is-revealed');
+if (!document.getElementById('envelope')) {
+  document.getElementById('top')?.classList.add('is-revealed');
+  showerPetals();
+}
