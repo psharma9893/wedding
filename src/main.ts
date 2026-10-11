@@ -200,43 +200,98 @@ function initCountdown(): void {
   timer = window.setInterval(tick, 1000);
 }
 
-/* ---------------- Optional music ---------------- */
+/* ---------------- Background music ----------------
+ * Browsers only allow sound after a user gesture, so the music starts on the
+ * envelope tap and fades in gently. A small, subtle mute button stays in the
+ * bottom-left corner; the guest's choice is remembered. Music pauses while the
+ * tab is hidden and resumes when they come back.
+ */
 function initMusic(): void {
   const btn = document.getElementById('music') as HTMLButtonElement | null;
   if (!btn?.dataset.src) return;
+  const target = Math.min(1, Math.max(0, parseFloat(btn.dataset.volume || '0.55')));
   const audio = new Audio();
-  audio.preload = 'none';
   audio.loop = true;
+  audio.preload = 'none';
   audio.src = btn.dataset.src;
-  let broken = false;
-  audio.addEventListener('error', () => {
-    broken = true;
-    btn.remove(); // missing / unsupported file: hide the control quietly
-  });
-  const set = (playing: boolean) => {
-    btn.classList.toggle('is-playing', playing);
-    btn.setAttribute('aria-pressed', String(playing));
-    btn.setAttribute('aria-label', playing ? 'Pause background music' : 'Play background music');
+  let muted = false;
+  try {
+    muted = localStorage.getItem('invite-muted') === '1';
+  } catch {
+    /* storage unavailable */
+  }
+  let fadeTimer = 0;
+  let wantPlay = false; // true once the guest has opened the invite (or tapped unmute)
+
+  const render = () => {
+    btn.classList.toggle('is-muted', muted);
+    btn.setAttribute('aria-pressed', String(muted));
+    btn.setAttribute('aria-label', muted ? 'Play music' : 'Mute music');
   };
-  btn.hidden = false;
-  btn.addEventListener('click', async () => {
-    if (broken) return;
-    if (audio.paused) {
+  const fadeTo = (v: number, ms: number, done?: () => void) => {
+    window.clearInterval(fadeTimer);
+    const start = audio.volume;
+    const t0 = performance.now();
+    fadeTimer = window.setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / ms);
       try {
-        await audio.play();
-        set(true);
+        audio.volume = start + (v - start) * k; // ignored on iOS (fixed volume) — harmless
       } catch {
-        set(false);
+        /* ignore */
       }
-    } else {
-      audio.pause();
-      set(false);
+      if (k >= 1) {
+        window.clearInterval(fadeTimer);
+        done?.();
+      }
+    }, 50);
+  };
+  const play = () => {
+    if (muted) return;
+    audio.volume = 0;
+    audio
+      .play()
+      .then(() => fadeTo(target, 2500))
+      .catch(() => {
+        /* autoplay blocked: the button still lets the guest start it */
+      });
+  };
+  const pause = () => fadeTo(0, 400, () => audio.pause());
+
+  audio.addEventListener('error', () => btn.remove()); // missing / unsupported file: hide quietly
+
+  // Warm up the file while the guest looks at the envelope, so it starts instantly on tap.
+  const warm = () => {
+    audio.preload = 'auto';
+    audio.load();
+  };
+  if ('requestIdleCallback' in window) (window as any).requestIdleCallback(warm, { timeout: 2500 });
+  else setTimeout(warm, 1500);
+
+  btn.hidden = false;
+  render();
+  btn.addEventListener('click', () => {
+    muted = !muted;
+    try {
+      localStorage.setItem('invite-muted', muted ? '1' : '0');
+    } catch {
+      /* ignore */
+    }
+    render();
+    if (muted) pause();
+    else {
+      wantPlay = true;
+      play();
     }
   });
-  // Start softly when the guest opens the envelope (that click is a user gesture).
+  // Envelope tap = user gesture, so sound is allowed to start here.
   document.addEventListener('invite:opened', () => {
-    audio.volume = 0.6;
-    audio.play().then(() => set(true)).catch(() => set(false));
+    wantPlay = true;
+    play();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (!audio.paused) audio.pause();
+    } else if (wantPlay && !muted) play();
   });
 }
 

@@ -474,9 +474,11 @@ function floatingRsvp(): string {
 
 function musicControl(): string {
   if (!C.music.src) return '';
-  return `<button type="button" class="music" id="music" aria-pressed="false" aria-label="Play background music" data-src="${esc(
+  const on = '<svg class="music__on" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  const off = '<svg class="music__off" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  return `<button type="button" class="music" id="music" aria-pressed="false" aria-label="Mute music" data-src="${esc(
     C.music.src,
-  )}" hidden>${icon.music}<span class="music__bars" aria-hidden="true"><i></i><i></i><i></i></span></button>`;
+  )}" data-volume="${C.music.volume ?? 0.55}" hidden>${on}${off}</button>`;
 }
 
 /** Full <body> content. */

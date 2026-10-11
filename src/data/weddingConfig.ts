@@ -201,13 +201,15 @@ export const weddingConfig = {
   },
 
   /**
-   * Optional background music. Leave src as '' to hide the music button.
-   * To enable: put an MP3 you have the rights to use at public/audio/music.mp3
-   * and set src: 'audio/music.mp3'.
+   * Background music. Starts softly when the guest taps the envelope (browsers only
+   * allow sound after a tap). Leave src as '' to remove music and the mute button.
    */
   music: {
-    src: '',
-    title: '',
+    // Web-optimised copy of bgm_music.mp3 (trimmed, soft fade at each end so the loop is seamless, 128 kbps)
+    src: 'audio/bgm.mp3',
+    title: 'Background music',
+    /** 0–1. Music fades up to this level after the envelope is opened. */
+    volume: 0.55,
   },
 
   /** Link-preview text (WhatsApp, iMessage, etc.) */
