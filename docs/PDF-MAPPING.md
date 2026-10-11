@@ -14,7 +14,7 @@ Every original image was extracted at its native resolution with
 | 2 | PDF p2 | — | Removed (its countdown moved to the opening page). |
 | 3, 4 | PDF p3, p4 | — | Removed. |
 | 5 | PDF p5 | — | Removed (redundant with the opening tile). |
-| 6 | PDF p6 (text) | **The invitation** (`#family-invitation`) | Rich framed text tile. |
+| 6 | PDF p6 (text, rewritten for the groom's side) | **The invitation** (`#family-invitation`) | Rich framed text tile: Pranshu's grandparents and parents, "union of their son Pranshu with Nishtha, beloved daughter of Mr Sharad Kumar & Mrs Alpana". |
 | 7 | PDF p7 | **Mehndi** (`#mehndi`) | Card + tiles. Dress code: shades of green / pink. |
 | 8 | PDF p8 (patched to 12 PM) | **Haldi** (`#haldi`) | Card + tile. Dress code: shades of yellow. |
 | 9 | PDF p9 | (background glow) | Lounge image used as the blurred glow behind the Sangeet page. |

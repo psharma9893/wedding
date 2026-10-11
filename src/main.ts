@@ -91,11 +91,11 @@ function showerPetals(): void {
   const box = document.createElement('div');
   box.className = 'shower';
   box.setAttribute('aria-hidden', 'true');
-  const kinds = ['marigold', 'marigold', 'rose', 'jasmine', 'gold'];
+  const kinds = ['rose', 'rose-deep', 'rose', 'rose-crimson', 'rose-deep']; // red rose petals
   for (let i = 0; i < count; i++) {
     const p = document.createElement('i');
     p.className = `shower__p shower__p--${kinds[i % kinds.length]}`;
-    const size = 8 + Math.random() * 10;
+    const size = 10 + Math.random() * 10;
     const dur = 5 + Math.random() * 4; // 5–9 s per fall
     p.style.cssText = `left:${Math.random() * 100}%;width:${size}px;height:${size * 1.25}px;--dx:${(Math.random() - 0.5) * 160}px;--rot:${
       360 + Math.random() * 540

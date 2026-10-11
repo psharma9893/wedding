@@ -84,7 +84,9 @@ const mapsBtn = (url: string, label = 'Get directions'): string =>
     ? `<a class="btn btn--line" href="${esc(url)}" target="_blank" rel="noopener">${icon.pin}<span>${esc(label)}</span></a>`
     : '';
 
-const names = `${C.couple.bride} &amp; ${C.couple.groom}`;
+const A = C.couple.first; // first name shown (Pranshu)
+const B = C.couple.second;
+const names = `${A} &amp; ${B}`;
 
 /* ---------- reusable blocks ---------- */
 
@@ -140,6 +142,31 @@ function plate(o: PlateOpts): string {
 /* ---------- sections, in PDF order ---------- */
 
 
+
+const WAX_EDGE = 'M97.1 50.0C97.2 54.0 92.9 58.0 91.6 62.2C90.2 66.4 91.2 71.7 89.0 75.0C86.7 78.4 81.4 79.6 78.1 82.4C74.7 85.1 72.5 89.1 68.9 91.5C65.4 93.9 60.9 96.8 56.7 96.9C52.6 97.0 48.2 93.2 43.9 92.3C39.6 91.4 34.8 93.0 31.1 91.3C27.5 89.7 25.2 85.0 22.1 82.2C18.9 79.4 14.8 77.6 12.1 74.3C9.5 71.1 7.1 66.9 6.2 62.9C5.4 58.8 6.9 54.3 7.1 50.0C7.2 45.7 6.4 41.6 6.9 37.3C7.4 33.1 7.7 27.7 10.2 24.4C12.6 21.1 18.3 20.2 21.7 17.4C25.2 14.6 27.1 9.8 30.7 7.7C34.3 5.5 39.1 5.2 43.4 4.3C47.8 3.4 52.6 1.7 56.8 2.4C61.1 3.1 65.3 6.0 69.1 8.3C72.8 10.6 75.3 13.8 79.3 16.2C83.3 18.5 91.0 18.8 93.0 22.4C94.9 26.0 90.3 33.4 91.0 38.0C91.6 42.6 97.0 46.0 97.1 50.0Z';
+let sealId = 0;
+/** Poured wax seal: melted irregular edge, raised rim, pressed centre, embossed monogram. */
+function waxSeal(cls: string, attrs = ''): string {
+  const id = `wax${++sealId}`;
+  return `<span class="${cls} wax" ${attrs}><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs>
+<radialGradient id="${id}a" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#b3303f"/><stop offset=".42" stop-color="#6f0e1f"/><stop offset="1" stop-color="#36040d"/></radialGradient>
+<radialGradient id="${id}b" cx="60%" cy="66%" r="70%"><stop offset="0" stop-color="#8c1828"/><stop offset=".7" stop-color="#5e0b19"/><stop offset="1" stop-color="#3f0611"/></radialGradient>
+<linearGradient id="${id}c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb0b6" stop-opacity=".75"/><stop offset=".5" stop-color="#ff9aa2" stop-opacity="0"/><stop offset="1" stop-color="#2a0008" stop-opacity=".5"/></linearGradient>
+</defs>
+<path d="${WAX_EDGE}" fill="url(#${id}a)"/>
+<path d="${WAX_EDGE}" fill="none" stroke="url(#${id}c)" stroke-width="1.4"/>
+<circle cx="50" cy="50" r="33.5" fill="none" stroke="#5a0b19" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="50" cy="50" r="32" fill="url(#${id}b)"/>
+<circle cx="50" cy="50" r="32" fill="none" stroke="url(#${id}c)" stroke-width="1.2" transform="rotate(180 50 50)"/>
+<circle cx="50" cy="50" r="27" fill="none" stroke="#3d0610" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1.2 2.2"/>
+<path d="M30 30 C 36 22, 46 19, 54 20" fill="none" stroke="#ffe0e3" stroke-opacity=".5" stroke-width="2.8" stroke-linecap="round"/>
+<g font-family="'Playfair Display', Georgia, serif" font-weight="600" text-anchor="middle">
+<text x="50.6" y="58.2" font-size="22" fill="#ff9fab" fill-opacity=".6">${esc(A[0])}<tspan font-size="14" font-style="italic" dx="1">&amp;</tspan><tspan dx="1">${esc(B[0])}</tspan></text>
+<text x="49.4" y="57" font-size="22" fill="#2a0309" fill-opacity=".85">${esc(A[0])}<tspan font-size="14" font-style="italic" dx="1">&amp;</tspan><tspan dx="1">${esc(B[0])}</tspan></text>
+<text x="50" y="57.6" font-size="22" fill="#5c0a17">${esc(A[0])}<tspan font-size="14" font-style="italic" dx="1">&amp;</tspan><tspan dx="1">${esc(B[0])}</tspan></text>
+</g></svg></span>`;
+}
+
 /** Slowly turning gold mandala behind the envelope. */
 function mandala(): string {
   const ring = (n: number, r: number, rx: number, ry: number) =>
@@ -174,18 +201,18 @@ function envelope(): string {
   <div class="envelope__stage">
     ${kolam('envelope__kolam')}
     <p class="envelope__eyebrow">${esc(C.envelope.eyebrow)}</p>
-    <p class="envelope__names script" id="env-names">${esc(C.couple.bride)} <span class="amp">&amp;</span> ${esc(C.couple.groom)}</p>
+    <p class="envelope__names script" id="env-names">${esc(A)} <span class="amp">&amp;</span> ${esc(B)}</p>
     <p class="envelope__line">${esc(C.envelope.line)}</p>
     <button type="button" class="env" id="open-invite" aria-label="${esc(C.envelope.cta)}">
       <span class="env__back"></span>
       <span class="env__letter">
         ${orn('orn--sm')}
-        <span class="env__letter-names script">${esc(C.couple.bride)} &amp; ${esc(C.couple.groom)}</span>
+        <span class="env__letter-names script">${esc(A)} &amp; ${esc(B)}</span>
         <span class="env__letter-date">${esc(C.weddingDate.short)}</span>
       </span>
       <span class="env__pocket"></span>
       <span class="env__flap"></span>
-      <span class="env__seal"><span>${esc(C.couple.bride[0])}<i>&amp;</i>${esc(C.couple.groom[0])}</span></span>
+      ${waxSeal('env__seal')}
       <span class="env__burst"></span>
     </button>
     <p class="envelope__hint" aria-hidden="true">Tap the envelope to open</p>
@@ -197,6 +224,7 @@ function hero(): string {
   const a = images.cover;
   return `<header class="opening" id="top">
   ${ambient(a)}
+  <div class="opening__decor" aria-hidden="true">${mandala()}</div>
   <div class="hero__petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="opening__inner">
     <figure class="opening__art">
@@ -212,7 +240,7 @@ function hero(): string {
       ${lotus('lotus--l')}${lotus('lotus--r')}
       ${kolam('opening__kolam')}
       <p class="opening__eyebrow">The wedding of</p>
-      <h1 class="opening__names script"><span>${esc(C.couple.bride)}</span><span class="amp">&amp;</span><span>${esc(C.couple.groom)}</span></h1>
+      <h1 class="opening__names script"><span>${esc(A)}</span><span class="amp">&amp;</span><span>${esc(B)}</span></h1>
       ${orn('orn--gold')}
       <p class="opening__date">${esc(C.weddingDate.short)}</p>
       <p class="opening__city">${esc(C.venue.city)}</p>
@@ -245,14 +273,14 @@ function formalInvitation(): string {
     ${kolam('rich-tile__kolam reveal')}
     <p class="inv__invocation reveal">${esc(f.invocation)}</p>
     <p class="inv__italic reveal">${esc(f.opening)}</p>
-    <ul class="inv__family reveal">${f.brideFamily.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+    <ul class="inv__family reveal">${f.hostFamily.map((n) => `<li>${n.split(' & ').map((part, i, all) => `<span class="nb">${esc(part)}${i < all.length - 1 ? ' &amp;' : ''}</span>`).join(' ')}</li>`).join('')}</ul>
     <p class="inv__italic reveal">${esc(f.inviteLine)}</p>
-    <p class="inv__name script reveal">${esc(C.couple.bride)}</p>
+    <p class="inv__name script reveal">${esc(A)}</p>
     <p class="inv__with reveal">with</p>
-    <p class="inv__name script reveal">${esc(C.couple.groom)}</p>
+    <p class="inv__name script reveal">${esc(B)}</p>
     ${orn('orn--gold reveal')}
-    <p class="inv__italic reveal">${esc(f.groomParentsLine)}</p>
-    <p class="inv__parents reveal">${esc(f.groomParents)}</p>
+    <p class="inv__italic reveal">${esc(f.otherParentsLine)}</p>
+    <p class="inv__parents reveal">${f.otherParents.split(' & ').map((part, i, all) => `<span class="nb">${esc(part)}${i < all.length - 1 ? ' &amp;' : ''}</span>`).join(' ')}</p>
   </div>`;
   return `<section class="textpage" id="family-invitation">
   <div class="textpage__inner">
@@ -308,6 +336,7 @@ function weddingDay(): string {
     body: `<p class="plate__tagline reveal">${esc(ev('wedding').tagline)}</p><div class="tickets">${ticket(ev('wedding'))}</div>`,
     flip: true,
     tone: 'day',
+    cardCls: 'plate__card--wide',
   });
 }
 
@@ -317,7 +346,8 @@ function schedule(): string {
       (e) => `<li class="tl__item reveal">
       <p class="tl__when"><span class="tl__date">${esc(e.dateLabel.replace(/ 2026$/, ''))}</span><span class="tl__time">${esc(e.timeLabel)}</span></p>
       <h3 class="tl__name">${esc(e.name)}</h3>
-      <p class="tl__venue">${esc(e.venue)}${e.dressCode ? `<span class="tl__dress">Dress code · ${esc(e.dressCode)}</span>` : ''}</p>
+      <p class="tl__venue">${esc(e.venue)}</p>
+      ${e.dressCode ? `<p class="tl__dress"><span class="tl__dress-label">Dress code</span><span class="tl__dress-value">${esc(e.dressCode)}</span></p>` : ''}
     </li>`,
     )
     .join('');
@@ -374,14 +404,17 @@ function rsvp(): string {
     <ul class="contacts reveal">${contacts}</ul>
     ${r.eventManager?.name ? `<div class="manager reveal">
       ${orn('orn--gold')}
+      <div class="manager__grid"><div class="manager__info">
       <p class="manager__label">Event Manager</p>
       <p class="manager__note">${esc(r.eventManager.note)}</p>
+      </div><div class="manager__contact">
       <p class="manager__name script">${esc(r.eventManager.name)}</p>
       <p class="contact__phone"><a href="tel:+${digits(r.eventManager.phone)}">${esc(r.eventManager.phone)}</a></p>
       <div class="contact__btns">
         <a class="btn btn--gold btn--sm" href="https://wa.me/${digits(r.eventManager.phone)}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(r.eventManager.name)}, event manager">${icon.chat}<span>WhatsApp</span></a>
         <a class="btn btn--line btn--sm" href="tel:+${digits(r.eventManager.phone)}" aria-label="Call ${esc(r.eventManager.name)}, event manager">${icon.phone}<span>Call</span></a>
       </div>
+      </div></div>
     </div>` : ''}
     <div class="reveal rsvp__dir">${mapsBtn(C.venue.mapsUrl, 'Directions to venue')}</div>
   </div>`;
@@ -397,17 +430,17 @@ function closing(): string {
   return `<footer class="closing" id="blessings">
   ${ambient(images.weddingDay)}
   <div class="closing__inner">
-    <h2 class="eyebrow reveal">${esc(C.compliments.heading)}</h2>
-    <ul class="closing__names reveal">${C.compliments.names.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-    ${orn('reveal')}
-    <div class="kids reveal">
+    <div class="kids blessings-tile reveal">
+      <h2 class="blessings-tile__title">${esc(C.compliments.heading)}</h2>
+      <ul class="closing__names">${C.compliments.names.map((n) => `<li>${n.split(/ (&|and) /).reduce((acc: string[], part, i, all) => (i % 2 === 0 ? [...acc, `<span class="nb">${esc(part)}${all[i + 1] ? ` ${all[i + 1] === '&' ? '&amp;' : 'and'}` : ''}</span>`] : acc), []).join(' ')}</li>`).join('')}</ul>
+      ${orn('orn--gold')}
       <p class="kids__to">${esc(C.kidsNote.to)}</p>
       <p class="kids__msg">${esc(C.kidsNote.message)}</p>
       <p class="kids__from">— ${esc(C.kidsNote.from)}</p>
     </div>
-    <div class="closing__seal reveal" aria-hidden="true"><span>${esc(C.couple.bride[0])}<i>&amp;</i>${esc(C.couple.groom[0])}</span></div>
+    ${waxSeal('closing__seal reveal', 'aria-hidden="true"')}
     <p class="closing__names-big script reveal">${names}</p>
-    <p class="closing__date reveal">${esc(C.weddingDate.short)} · ${esc(C.venue.name)}, ${esc(C.venue.city)}</p>
+    <p class="closing__date reveal"><span class="nb">${esc(C.weddingDate.short)}</span><br><span class="nb">${esc(C.venue.name)}, ${esc(C.venue.city)}</span></p>
     <p class="closing__signoff reveal">${esc(C.closing.signoff)}</p>
     <a class="closing__top" href="#top">Back to the beginning ↑</a>
   </div>
@@ -429,6 +462,7 @@ function musicControl(): string {
 /** Full <body> content. */
 export function renderBody(): string {
   return [
+    '<div class="page-border page-border--l" aria-hidden="true"></div><div class="page-border page-border--r" aria-hidden="true"></div>',
     envelope(),
     '<main id="invitation">',
     hero(),
@@ -454,14 +488,14 @@ const icsDate = (iso: string): string => new Date(iso).toISOString().replace(/[-
 export function renderICS(): string {
   const stamp = icsDate(new Date('2026-10-01T00:00:00Z').toISOString());
   const fold = (s: string) => s.replace(/[,;\\]/g, (m) => '\\' + m);
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Nishtha & Pranshu//Wedding Invitation//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pranshu & Nishtha//Wedding Invitation//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
   for (const e of C.events) {
     lines.push(
       'BEGIN:VEVENT',
-      `UID:${e.id}-2026@nishtha-pranshu-wedding`,
+      `UID:${e.id}-2026@pranshu-nishtha-wedding`,
       `DTSTAMP:${stamp}`,
       `DTSTART:${icsDate(e.startISO)}`,
-      `SUMMARY:${fold(`${e.name} · ${C.couple.bride} & ${C.couple.groom}`)}`,
+      `SUMMARY:${fold(`${e.name} · ${A} & ${B}`)}`,
       `LOCATION:${fold(e.venue)}`,
       `DESCRIPTION:${fold(`${e.tagline} — ${e.timeLabel}${e.mapsUrl ? ` — ${e.mapsUrl}` : ''}`)}`,
       ...(e.mapsUrl ? [`URL:${e.mapsUrl}`] : []),

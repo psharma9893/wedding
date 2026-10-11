@@ -1,4 +1,4 @@
-# Nishtha & Pranshu: Wedding Invitation
+# Pranshu & Nishtha: Wedding Invitation (groom's side)
 
 A cinematic, mobile-first wedding invitation website, built from the invitation
 artwork (PDF pages 1–12 plus the RSVP card), in their original order.
@@ -54,7 +54,7 @@ The link-preview image is `public/social-preview.jpg` (1200 × 630).
 
 ## D. Edit wedding details
 
-Everything editable is in **`src/data/weddingConfig.ts`**: names, dates, times, venues,
+Everything editable is in **`src/data/weddingConfig.ts`** (name order is set by `couple.first` / `couple.second`): names, dates, times, venues,
 the Google Maps link, RSVP phone numbers, the WhatsApp message, family names,
 the kids' note and the link-preview title. No design files need touching.
 

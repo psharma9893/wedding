@@ -36,8 +36,11 @@ export const weddingConfig = {
   couple: {
     bride: 'Nishtha',
     groom: 'Pranshu',
+    /** Name order everywhere on the invite. This is the groom's-side invite, so Pranshu comes first. */
+    first: 'Pranshu',
+    second: 'Nishtha',
     /** Initials used on the wax seal and favicon */
-    monogram: 'N & P',
+    monogram: 'P & N',
   },
 
   /** Main wedding moment — drives the countdown on the "We've picked the date" section */
@@ -60,18 +63,18 @@ export const weddingConfig = {
     cta: 'Open Your Invitation',
   },
 
-  /** Page 6 — formal invitation, word for word */
+  /** Formal invitation (groom's side), word for word */
   formalInvitation: {
     invocation: 'Shri Ganeshaya Namah',
     opening: 'Dear Family and Friends with the blessings of our elders',
-    brideFamily: [
-      'Late Shri P.K Saxena and Smt Shakuntla Saxena',
-      'Shri S.B Johri and Smt Shobha Johri',
-      'Mr Sharad Kumar Saxena and Mrs Alpna Saxena',
+    hostFamily: [
+      'Late Smt. Shanti Devi & Late Shri Baboo Ram Sharma',
+      'Late Smt. Shanti Devi & Late Shri Chandrabhan Sharma',
+      'Mr Harish Kumar Sharma & Mrs Renu Sharma',
     ],
-    inviteLine: 'joyfully invite you to celebrate the union of their daughter',
-    groomParentsLine: 'beloved son of',
-    groomParents: 'Mr Harish Sharma & Mrs Renu Sharma',
+    inviteLine: 'joyfully invite you to celebrate the union of their son',
+    otherParentsLine: 'beloved daughter of',
+    otherParents: 'Mr Sharad Kumar & Mrs Alpna',
   },
 
   /** Events in the order they appear in the PDF */
@@ -156,7 +159,7 @@ export const weddingConfig = {
       note: 'For any queries about the events, travel or stay, please contact our event manager.',
     },
     /** Pre-filled WhatsApp message ('' = open an empty chat) */
-    whatsappMessage: "Hi! We've received Nishtha & Pranshu's wedding invitation and would love to RSVP.",
+    whatsappMessage: "Hi! We've received Pranshu & Nishtha's wedding invitation and would love to RSVP.",
   },
 
   /** "With best compliments" — RSVP card */
@@ -209,9 +212,9 @@ export const weddingConfig = {
 
   /** Link-preview text (WhatsApp, iMessage, etc.) */
   share: {
-    title: 'Nishtha & Pranshu · Wedding Invitation · 12 December 2026',
+    title: 'Pranshu & Nishtha · Wedding Invitation · 12 December 2026',
     description:
-      'You are invited to celebrate the wedding of Nishtha & Pranshu — 11th & 12th December 2026, Justa Rasa, Rishikesh.',
+      'You are invited to celebrate the wedding of Pranshu & Nishtha — 11th & 12th December 2026, Justa Rasa, Rishikesh.',
     themeColor: '#5e1f39',
   },
 };
