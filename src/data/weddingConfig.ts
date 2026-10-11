@@ -166,7 +166,7 @@ export const weddingConfig = {
   compliments: {
     heading: 'With best compliments',
     names: [
-      'Prahlad Kumar Sharma & Sudha Sharma',
+      'Shri Prahlad Kumar Sharma & Sudha Sharma',
       'Shri RP Sharma & Rekha Sharma',
       'Shri Ramakant and Manju Sharma',
       'Gopal ji & Geeta',

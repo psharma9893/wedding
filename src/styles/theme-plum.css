@@ -1799,3 +1799,91 @@ body { font-family: var(--serif); font-weight: 500; font-size: 1.16rem; }
   #mehndi .plate__card, #haldi .plate__card, #sangeet .plate__card, #wedding .plate__card { border-radius: 10px 10px 0 0; }
 }
 .evstrip__main .nb { display: inline-block; white-space: nowrap; }
+
+/* =========================================================
+   ROUND 15
+   ========================================================= */
+
+/* ---- action buttons (RSVP WhatsApp / Call, Directions, Add to calendar): ~2.7x larger ---- */
+.contact__btns { gap: 12px; }
+.contact__btns .btn,
+.rsvp__dir .btn,
+.schedule__actions .btn {
+  min-height: 56px;
+  padding: 0 26px;
+  gap: 10px;
+  font-family: var(--label);
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  border-radius: 999px;
+}
+.contact__btns .btn svg,
+.rsvp__dir .btn svg,
+.schedule__actions .btn svg { width: 22px; height: 22px; }
+@media (max-width: 639px) {
+  .contact__btns { flex-direction: column; align-items: stretch; width: min(100%, 300px); margin: 0 auto; }
+  .contact__btns .btn { width: 100%; }
+  .rsvp__dir .btn, .schedule__actions .btn { width: min(100%, 300px); }
+}
+
+/* ---- The Celebrations: cards at 70%, fonts scaled to fit ---- */
+.tl { max-width: 640px; gap: 16px; margin: 24px auto 26px; }
+.tl__item, .tl__item:last-child { padding: 18px 20px 16px; --fil: 32px; --fil-sm: 14px; }
+.tl__item::after { inset: 6px; border-radius: 3px 20px 3px 20px; }
+.tl__date { font-size: 0.7rem; letter-spacing: 0.14em; }
+.tl__time { font-size: 0.92rem; }
+.tl__name { font-size: 1.25rem; margin: 2px 0 1px; }
+.tl__venue { font-size: 0.94rem; }
+.tl__dress { margin-top: 7px; padding: 5px 12px 3px; gap: 0; }
+.tl__dress-label { font-size: 0.6rem; }
+.tl__dress-value { font-size: 0.94rem; }
+@media (min-width: 640px) { .tl__item:last-child { width: calc(50% - 8px); } }
+@media (max-width: 639px) {
+  .tl { width: min(100%, 320px); }
+  .tl__item, .tl__item:last-child { padding: 18px 24px 16px; }
+  .tl__item::before { top: -6px; width: 10px; height: 10px; }
+}
+
+/* ---- With best compliments: richer names ---- */
+.blessings-tile .closing__names {
+  font-family: var(--serif);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.12rem, 4.8vw, 1.32rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #f4dca4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+.blessings-tile .closing__names li { padding: 5px 0; }
+.blessings-tile .closing__names li + li::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin: 0 auto 9px;
+  transform: rotate(45deg);
+  background: rgba(246, 212, 130, 0.65);
+}
+@media (max-width: 639px) { .rsvp__dir .btn, .schedule__actions .btn { white-space: nowrap; font-size: 0.95rem; letter-spacing: 0.1em; padding: 0 18px; } }
+
+/* ---- ROUND 15b: action buttons at 70% of their earlier size (replaces the enlarged version) ---- */
+.contact__btns { flex-direction: row; align-items: center; justify-content: center; width: auto; gap: 6px; }
+.contact__btns .btn,
+.rsvp__dir .btn,
+.schedule__actions .btn {
+  width: auto;
+  min-height: 26px;
+  padding: 0 11px;
+  gap: 5px;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.contact__btns .btn svg,
+.rsvp__dir .btn svg,
+.schedule__actions .btn svg { width: 11px; height: 11px; }
+@media (max-width: 639px) {
+  .contact__btns { flex-direction: row; width: auto; }
+  .contact__btns .btn, .rsvp__dir .btn, .schedule__actions .btn { width: auto; font-size: 0.64rem; padding: 0 11px; }
+}
