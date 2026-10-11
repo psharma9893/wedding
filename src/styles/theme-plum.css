@@ -1730,3 +1730,72 @@ body { font-family: var(--serif); font-weight: 500; font-size: 1.16rem; }
   100% { opacity: 0; transform: translate3d(var(--dx, 0), 112vh, 0) rotate(var(--rot, 360deg)) rotateX(320deg); }
 }
 .hero__petals i { background: radial-gradient(ellipse at 45% 30%, #f04a5a, #c8102e 50%, #8a0a1f); border-radius: 55% 55% 50% 50% / 68% 68% 32% 32%; }
+
+/* =========================================================
+   ROUND 14 — PHONE ONLY: event pages = photo + slim info strip
+   (the photo already carries the title & details; laptop unchanged)
+   ========================================================= */
+.evstrip { display: none; }
+@media (max-width: 899px) {
+  #mehndi .plate__title, #haldi .plate__title, #sangeet .plate__title, #wedding .plate__title,
+  #mehndi .tickets, #haldi .tickets, #sangeet .tickets, #wedding .tickets,
+  #wedding .plate__tagline {
+    position: absolute !important;
+    width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  #mehndi .plate__inner, #haldi .plate__inner, #sangeet .plate__inner, #wedding .plate__inner { gap: 0; }
+  #mehndi, #haldi, #sangeet, #wedding { padding-top: 28px; padding-bottom: 28px; }
+  .evstrip {
+    display: block;
+    position: relative;
+    width: min(100%, 640px);
+    margin: -2px auto 0;
+    padding: 14px 18px 13px;
+    text-align: center;
+    background: var(--tile-bg);
+    border: 1px solid rgba(246, 212, 130, 0.85);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 16px 28px -14px rgba(0, 0, 0, 0.75);
+  }
+  .evstrip::before {
+    content: '';
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(246, 212, 130, 0.7), transparent);
+  }
+  .evstrip p { margin: 0; }
+  .evstrip__name {
+    font-family: var(--label);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-lotus);
+  }
+  .evstrip__main {
+    font-family: var(--display);
+    font-size: clamp(0.98rem, 4.2vw, 1.1rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ivory-text);
+  }
+  .evstrip__dress { margin-top: 4px !important; font-size: 1.02rem; font-style: italic; color: var(--ivory-soft); }
+  .evstrip__dress span {
+    font-family: var(--label);
+    font-style: normal;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-lotus);
+    margin-right: 4px;
+  }
+  .evstrip__note { margin-top: 4px !important; font-family: var(--script); font-size: 1.45rem; line-height: 1.2; color: var(--gold-lotus); }
+  .evstrip__sep { display: block; width: 40%; height: 1px; margin: 10px auto; background: rgba(246, 212, 130, 0.3); }
+  /* photo card joins the strip seamlessly */
+  #mehndi .plate__card, #haldi .plate__card, #sangeet .plate__card, #wedding .plate__card { border-radius: 10px 10px 0 0; }
+}
+.evstrip__main .nb { display: inline-block; white-space: nowrap; }

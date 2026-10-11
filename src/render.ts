@@ -102,6 +102,26 @@ function ticket(e: WeddingEvent, extraCls = '', showName = false): string {
 </article>`;
 }
 
+
+/** Phone-only compact strip: "Wed, 9 Dec · 11:00 AM · At our residence" + dress code. */
+const shortDate = (label: string): string => {
+  const m = label.match(/^(\w{3})\w*,\s*(\d+)\w*\s+(\w{3})/);
+  return m ? `${m[1]}, ${m[2]} ${m[3]}` : label;
+};
+function strip(events: WeddingEvent[]): string {
+  return `<div class="evstrip" aria-hidden="true">${events
+    .map(
+      (e, i) => `${i ? '<span class="evstrip__sep"></span>' : ''}${
+        events.length > 1 ? `<p class="evstrip__name">${esc(e.name)}</p>` : ''
+      }<p class="evstrip__main">${[shortDate(e.dateLabel), e.timeLabel.replace(/ onwards$/i, ''), e.venue.replace(/, Rishikesh$/, '')]
+        .map((t) => `<span class="nb">${esc(t)}</span>`)
+        .join(' · ')}</p>${e.dressCode ? `<p class="evstrip__dress"><span>Dress code</span> ${esc(e.dressCode)}</p>` : ''}${
+        e.note ? `<p class="evstrip__note">${esc(e.note)}</p>` : ''
+      }`,
+    )
+    .join('')}</div>`;
+}
+
 const ev = (id: string): WeddingEvent => {
   const e = C.events.find((x) => x.id === id);
   if (!e) throw new Error(`Missing event "${id}" in weddingConfig.events`);
@@ -296,7 +316,7 @@ function mehndi(): string {
     a: images.mehndi,
     heading: '<span class="script">Mehndi</span> <small>Laga ke Rakhna</small>',
     headingVisible: true,
-    body: `<div class="tickets">${ticket(ev('mehndi'))}${ticket(ev('photoshoot'), 'ticket--minor', true)}</div>`,
+    body: `${strip([ev('mehndi'), ev('photoshoot')])}<div class="tickets">${ticket(ev('mehndi'))}${ticket(ev('photoshoot'), 'ticket--minor', true)}</div>`,
     tone: 'blush',
   });
 }
@@ -307,7 +327,7 @@ function haldi(): string {
     a: images.haldi,
     heading: '<span class="script">Haldi Hues</span> <small>In our yellow era</small>',
     headingVisible: true,
-    body: `<div class="tickets">${ticket(ev('haldi'))}</div>`,
+    body: `${strip([ev('haldi')])}<div class="tickets">${ticket(ev('haldi'))}</div>`,
     flip: true,
     tone: 'day',
   });
@@ -321,7 +341,7 @@ function sangeet(): string {
     a: images.thumkaNight,
     heading: '<span class="script">Sangeet Night</span> <small>and Party Lights</small>',
     headingVisible: true,
-    body: `<div class="tickets">${ticket(ev('sangeet'), 'ticket--night')}</div>`,
+    body: `${strip([ev('sangeet')])}<div class="tickets">${ticket(ev('sangeet'), 'ticket--night')}</div>`,
     tone: 'night',
   }).replace(ambient(images.thumkaNight), ambient(images.sangeetLounge))}
 </div>`;
@@ -333,7 +353,7 @@ function weddingDay(): string {
     a: images.weddingDay,
     heading: '<small>The</small> <span class="script">Wedding Day</span>',
     headingVisible: true,
-    body: `<p class="plate__tagline reveal">${esc(ev('wedding').tagline)}</p><div class="tickets">${ticket(ev('wedding'))}</div>`,
+    body: `${strip([ev('wedding')])}<p class="plate__tagline reveal">${esc(ev('wedding').tagline)}</p><div class="tickets">${ticket(ev('wedding'))}</div>`,
     flip: true,
     tone: 'day',
     cardCls: 'plate__card--wide',
